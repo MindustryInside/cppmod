@@ -1,14 +1,11 @@
-#include <iostream>
 #include <jni.h>
+#include <iostream>
 #include "include/nativeio_jni_Natives.h"
-#include "include/nativeio_jni_Natives2.h"
 
-JNIEXPORT void JNICALL Java_nativeio_jni_Natives_init
-        (JNIEnv *, jclass) {
-    std::cout << "Hello, World!" << std::endl;
-}
+JNIEXPORT void JNICALL Java_nativeio_jni_Natives_nativeInit(JNIEnv *env, jclass) {
+    jclass mainClass = env->FindClass("nativeio/Main");
+    jmethodID printMethod = env->GetStaticMethodID(mainClass, "print", "(Ljava/lang/String;)V");
 
-JNIEXPORT void JNICALL Java_nativeio_jni_Natives2_init2
-  (JNIEnv *, jclass) {
-    std::cout << "Hello, World 2!" << std::endl;
+    jstring str = env->NewStringUTF("Hello World from C++ using Main.print!");
+    env->CallStaticVoidMethod(mainClass, printMethod, str);
 }

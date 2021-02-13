@@ -1,7 +1,6 @@
 package nativeio;
 
-import static nativeio.jni.Natives.*;
-import static nativeio.jni.Natives2.*;
+import nativeio.jni.*;
 
 public class Main {
     static {
@@ -9,7 +8,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        init();
-        init2();
+        Natives.nativeInit();
+    }
+
+    public static void print(String str) {
+        System.out.println(str);
     }
 }

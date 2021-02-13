@@ -20,8 +20,7 @@ ext {
     ]
 
     natives.javaSources = [
-        'nativeio.jni.Natives',
-        'nativeio.jni.Natives2'
+        'nativeio.jni.Natives'
     ]
 
     natives.javaSources = natives.javaSources.collect { String clazz ->
@@ -46,8 +45,6 @@ task nativeHeaders() {
                 args '-d', TEMP
                 args '-h', natives.include
                 args natives.javaSources
-
-            println args
         }
     }
 }
