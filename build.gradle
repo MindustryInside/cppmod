@@ -1,0 +1,78 @@
+import org.gradle.internal.jvm.*
+
+apply plugin: 'java'
+
+sourceSets.main.java.srcDirs = ['src']
+
+def jvm = Jvm.current()
+def JAVA_HOME = jvm.javaHome
+def TEMP = File.createTempDir()
+def OS = System.getProperty('os.name')
+
+ext {
+    natives = [:]
+
+    natives.bin = file("$rootDir/natives/bin")
+    natives.include = file("$rootDir/natives/include")
+
+    natives.sources = [
+        "$rootDir/natives/*.cpp"
+    ]
+
+    natives.javaSources = [
+        'nativeio.jni.Natives',
+        'nativeio.jni.Natives2'
+    ]
+
+    natives.javaSources = natives.javaSources.collect { String clazz ->
+        clazz = clazz.replace '.', '\\'
+        clazz += '.java'
+
+        return "$rootDir\\src\\$clazz"
+    }
+}
+
+task run(type: JavaExec) {
+    main = 'nativeio.Main'
+    classpath = sourceSets.main.runtimeClasspath
+
+    jvmArgs "-Djava.library.path=$natives.bin"
+}
+
+task nativeHeaders() {
+    doLast {
+        exec {
+            executable jvm.javacExecutable
+                args '-d', TEMP
+                args '-h', natives.include
+                args natives.javaSources
+
+            println args
+        }
+    }
+}
+
+task buildNatives() {
+    def platformInclude = OS.contains('Windows') ? 'win32'
+            : OS.contains('Linux') ? 'linux' : 'darwin'
+
+    def platformShared = OS.contains('Windows') ? 'nativeio.dll'
+            : OS.contains('Linux') ? 'libnativeio.so' : 'libnativeio.dylib'
+
+    doLast {
+        natives.bin.mkdirs()
+
+        exec {
+            executable 'g++'
+                args '-I', "$JAVA_HOME/include"
+                args '-I', "$JAVA_HOME/include/$platformInclude"
+                args '-o', "$natives.bin/$platformShared"
+                args '-shared'
+                args natives.sources
+        }
+    }
+}
+
+task natives() {
+    dependsOn nativeHeaders, buildNatives
+}
