@@ -7,11 +7,6 @@ public class Main {
         System.loadLibrary("nativeio");
     }
 
-    public static void main(String[] args) {
-        Natives.nativeInit();
-    }
+    public static void main(String[] args) {}
 
-    public static void print(String str) {
-        System.out.println(str);
-    }
 }

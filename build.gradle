@@ -31,6 +31,15 @@ ext {
     }
 }
 
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    implementation "com.github.Anuken.Arc:arc-core:v124.1"
+}
+
 task run(type: JavaExec) {
     main = 'nativeio.Main'
     classpath = sourceSets.main.runtimeClasspath
@@ -65,6 +74,7 @@ task buildNatives() {
                 args '-I', "$JAVA_HOME/include/$platformInclude"
                 args '-o', "$natives.bin/$platformShared"
                 args '-shared'
+                args '-std=c++17'
                 args natives.sources
         }
     }
