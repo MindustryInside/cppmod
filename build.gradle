@@ -16,7 +16,7 @@ ext {
     natives.include = file("$rootDir/natives/include")
 
     natives.sources = [
-        "$rootDir/natives/*.cpp"
+        "$rootDir/natives/src/*"
     ]
 
     natives.javaSources = [
