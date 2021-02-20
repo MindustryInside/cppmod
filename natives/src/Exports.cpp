@@ -1,5 +1,13 @@
 #include "Globals.h"
+#include "Functions.h"
+#include <iostream>
 
 jint JNI_OnLoad(JavaVM *vm, void *) {
-    return JAVA_VERSION;
+    Globals::init(vm);
+
+    jfloat pi = getClass("arc/math/Mathf").getStaticField<jfloat>("PI", "F").get();
+
+    std::cout << pi << std::endl;
+
+    return JNI_VERSION_1_6;
 }

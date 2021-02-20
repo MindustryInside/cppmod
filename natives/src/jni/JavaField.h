@@ -2,6 +2,10 @@
 #define JAVA_FIELD_H
 
 #include "Jni.h"
+#include "../Functions.h"
+#include "TypedMethods.h"
+
+extern JNIEnv *obtainEnv();
 
 template <typename R>
 class JavaField {

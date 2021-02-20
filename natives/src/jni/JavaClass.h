@@ -4,14 +4,18 @@
 #include "Jni.h"
 #include "JavaMethod.h"
 #include "JavaField.h"
+#include "../Functions.h"
+
+extern JNIEnv *obtainEnv();
 
 class JavaClass {
     public:
         template <typename R, typename... Args>
-        JavaStaticMethod<R, Args...> getStaticMethod();
+        JavaStaticMethod<R, Args...> getStaticMethod(const char *name, const char *signature);
 
         template <typename R>
-        JavaStaticField<R> getStaticField();
+        JavaStaticField<R> getStaticField(const char *name, const char *signature);
+
 
         jclass javaClass;
 };

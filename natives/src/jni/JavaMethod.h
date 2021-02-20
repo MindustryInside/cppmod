@@ -6,7 +6,7 @@
 template <typename R, typename... Args>
 class JavaMethod {
     public:
-        R run(Args... args);
+        R call(Args... args);
 
         jobject javaObject;
         jmethodID javaMethod;
@@ -16,7 +16,7 @@ class JavaMethod {
 template <typename R, typename... Args>
 class JavaStaticMethod {
     public:
-        R run(Args... args);
+        R call(Args... args);
 
         jclass javaClass;
         jmethodID javaMethod;
