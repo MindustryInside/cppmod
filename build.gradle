@@ -11,6 +11,7 @@ def OS = System.getProperty('os.name')
 
 ext {
     natives = [:]
+    versions = [:]
 
     natives.bin = file("$rootDir/natives/bin")
     natives.include = file("$rootDir/natives/include")
@@ -29,6 +30,8 @@ ext {
 
         return "$rootDir\\src\\$clazz"
     }
+
+    versions.mindustry = 'v125.1'
 }
 
 repositories {
@@ -37,7 +40,8 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.Anuken.Arc:arc-core:v124.1"
+    implementation "com.github.Anuken.Mindustry:core:$versions.mindustry"
+    implementation "com.github.Anuken.Arc:arc-core:$versions.mindustry"
 }
 
 task run(type: JavaExec) {
