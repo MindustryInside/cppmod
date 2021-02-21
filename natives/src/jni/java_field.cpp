@@ -1,6 +1,6 @@
-#include "JavaField.h"
-#include "TypedMethods.h"
-#include "../Functions.h"
+#include "java_field.h"
+#include "typed_methods.h"
+#include "../functions.h"
 
 template <typename R>
 R JavaField<R>::get() {

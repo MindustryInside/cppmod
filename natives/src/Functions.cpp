@@ -1,5 +1,5 @@
-#include "Functions.h"
-#include "Globals.h"
+#include "functions.h"
+#include "globals.h"
 
 JavaClass getClass(const char *className) {
     JNIEnv *env = obtainEnv();

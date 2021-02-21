@@ -2,9 +2,9 @@
 #define JAVA_CLASS_H
 
 #include "Jni.h"
-#include "JavaMethod.h"
-#include "JavaField.h"
-#include "../Functions.h"
+#include "java_method.h"
+#include "java_field.h"
+#include "../functions.h"
 
 extern JNIEnv *obtainEnv();
 

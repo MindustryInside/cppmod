@@ -1,9 +1,9 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#include "jni/Jni.h"
-#include "jni/JavaClass.h"
-#include "jni/JavaObject.h"
+#include "jni/jni.h"
+#include "jni/java_class.h"
+#include "jni/java_object.h"
 
 JavaClass getClass(const char *className);
 

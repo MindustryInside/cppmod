@@ -1,4 +1,4 @@
-#include "Globals.h"
+#include "globals.h"
 
 Globals::Globals() {}
 

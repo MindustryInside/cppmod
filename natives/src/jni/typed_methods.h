@@ -1,7 +1,7 @@
 #ifndef TYPED_METHODS_H
 #define TYPED_METHODS_H
 
-#include "Jni.h"
+#include "jni.h"
 
 template < class R > struct TypedMethods;
 

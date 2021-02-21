@@ -2,8 +2,8 @@
 #define JAVA_FIELD_H
 
 #include "Jni.h"
-#include "../Functions.h"
-#include "TypedMethods.h"
+#include "../functions.h"
+#include "typed_methods.h"
 
 extern JNIEnv *obtainEnv();
 

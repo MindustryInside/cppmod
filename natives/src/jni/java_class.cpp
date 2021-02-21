@@ -1,5 +1,5 @@
-#include "JavaClass.h"
-#include "../Functions.h"
+#include "java_class.h"
+#include "../functions.h"
 
 template <typename R, typename... Args>
 JavaStaticMethod<R, Args...> JavaClass::getStaticMethod(const char *name, const char *signature) {

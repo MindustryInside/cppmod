@@ -1,7 +1,7 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-#include "jni/Jni.h"
+#include "jni/jni.h"
 
 #define JAVA_VERSION JNI_VERSION_1_6
 

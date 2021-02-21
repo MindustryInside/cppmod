@@ -1,5 +1,5 @@
-#include "JavaObject.h"
-#include "../Functions.h"
+#include "java_object.h"
+#include "../functions.h"
 
 template <typename R, typename... Args>
 JavaMethod<R, Args...> JavaObject::getMethod(const char *name, const char *signature) {

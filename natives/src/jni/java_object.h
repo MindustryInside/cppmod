@@ -2,8 +2,8 @@
 #define JAVA_OBJECT_H
 
 #include "Jni.h"
-#include "JavaMethod.h"
-#include "JavaField.h"
+#include "java_method.h"
+#include "java_field.h"
 
 class JavaObject {
     public:

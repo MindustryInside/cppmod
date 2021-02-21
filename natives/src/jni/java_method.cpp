@@ -1,6 +1,6 @@
-#include "JavaMethod.h"
-#include "TypedMethods.h"
-#include "../Functions.h"
+#include "java_method.h"
+#include "typed_methods.h"
+#include "../functions.h"
 
 template <typename R, typename... Args>
 R JavaMethod<R, Args...>::call(Args... args) {
