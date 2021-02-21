@@ -17,4 +17,6 @@ class JavaObject {
         jclass javaClass;
 };
 
+#include "java_object_impl.h"
+
 #endif

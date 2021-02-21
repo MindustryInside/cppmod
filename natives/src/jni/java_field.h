@@ -25,4 +25,6 @@ class JavaStaticField {
         jfieldID javaField;
 };
 
+#include "java_field_impl.h"
+
 #endif

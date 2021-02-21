@@ -22,4 +22,6 @@ class JavaStaticMethod {
         jmethodID javaMethod;
 };
 
+#include "java_method_impl.h"
+
 #endif

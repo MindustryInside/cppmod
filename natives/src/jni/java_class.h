@@ -20,4 +20,6 @@ class JavaClass {
         jclass javaClass;
 };
 
+#include "java_class_impl.h"
+
 #endif

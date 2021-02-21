@@ -1,6 +1,8 @@
 #include "java_class.h"
 #include "../functions.h"
 
+extern JNIEnv *obtainEnv();
+
 template <typename R, typename... Args>
 JavaStaticMethod<R, Args...> JavaClass::getStaticMethod(const char *name, const char *signature) {
     JNIEnv *env = obtainEnv();
