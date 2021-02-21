@@ -1,3 +1,6 @@
+#ifndef JAVA_FIELD_IMPL_H
+#define JAVA_FIELD_IMPL_H
+
 #include "java_field.h"
 #include "typed_methods.h"
 #include "../functions.h"
@@ -17,3 +20,5 @@ R JavaStaticField<R>::get() {
     
     return (env->*(TypedMethods<R>::GetStaticField))(javaClass, javaField);
 }
+
+#endif

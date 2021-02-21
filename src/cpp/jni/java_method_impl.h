@@ -1,3 +1,6 @@
+#ifndef JAVA_METHOD_IMPL_H
+#define JAVA_METHOD_IMPL_H
+
 #include "java_method.h"
 #include "typed_methods.h"
 #include "../functions.h"
@@ -17,3 +20,5 @@ R JavaStaticMethod<R, Args...>::call(Args... args) {
     
     return (env->*(TypedMethods<R>::CallStaticMethod))(javaClass, javaMethod, args...);
 }
+
+#endif

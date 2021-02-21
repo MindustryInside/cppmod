@@ -1,7 +1,7 @@
 #ifndef JAVA_OBJECT_H
 #define JAVA_OBJECT_H
 
-#include <jni.h>
+#include "jni.h"
 #include "java_method.h"
 #include "java_field.h"
 

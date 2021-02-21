@@ -1,3 +1,6 @@
+#ifndef JAVA_OBJECT_IMPL_H
+#define JAVA_OBJECT_IMPL_H
+
 #include "java_object.h"
 #include "../functions.h"
 
@@ -26,3 +29,5 @@ JavaField<R> JavaObject::getField(const char *name, const char *signature) {
 
     return field;
 }
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef JAVA_CLASS_IMPL_H
+#define JAVA_CLASS_IMPL_H
+
 #include "java_class.h"
 #include "../functions.h"
 
@@ -28,3 +31,5 @@ JavaStaticField<R> JavaClass::getStaticField(const char *name, const char *signa
 
     return field;
 }
+
+#endif
