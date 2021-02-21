@@ -1,8 +1,8 @@
 #ifndef JAVA_OBJECT_IMPL_H
 #define JAVA_OBJECT_IMPL_H
 
-#include "java_object.h"
-#include "../functions.h"
+#include "jni/java_object.h"
+#include "functions.h"
 
 template <typename R, typename... Args>
 JavaMethod<R, Args...> JavaObject::getMethod(const char *name, const char *signature) {

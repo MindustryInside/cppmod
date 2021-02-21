@@ -16,10 +16,7 @@ ext {
     natives.bin = file("$rootDir/natives/bin")
     natives.include = file("$rootDir/natives/include")
 
-    natives.sources = [
-        "$rootDir/src/cpp/*.cpp",
-        "$rootDir/src/cpp/*.h"
-    ]
+    natives.src = file("$rootDir/src/cpp")
 
     natives.javaSources = [
         'nativeio.jni.Natives'
@@ -77,10 +74,11 @@ task buildNatives() {
             executable 'g++'
                 args '-I', "$JAVA_HOME/include"
                 args '-I', "$JAVA_HOME/include/$platformInclude"
+                args '-I', natives.src
                 args '-o', "$natives.bin/$platformShared"
                 args '-shared'
                 args '-std=c++17'
-                args natives.sources
+                args "$natives.src/*.cpp"
         }
     }
 }

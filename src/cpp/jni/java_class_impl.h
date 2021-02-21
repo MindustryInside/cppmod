@@ -1,8 +1,8 @@
 #ifndef JAVA_CLASS_IMPL_H
 #define JAVA_CLASS_IMPL_H
 
-#include "java_class.h"
-#include "../functions.h"
+#include "jni/java_class.h"
+#include "functions.h"
 
 extern JNIEnv *obtainEnv();
 

@@ -1,9 +1,9 @@
 #ifndef JAVA_OBJECT_H
 #define JAVA_OBJECT_H
 
-#include "jni.h"
-#include "java_method.h"
-#include "java_field.h"
+#include "jni/jni.h"
+#include "jni/java_method.h"
+#include "jni/java_field.h"
 
 class JavaObject {
     public:
