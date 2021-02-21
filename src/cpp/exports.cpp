@@ -2,7 +2,7 @@
 #include "functions.h"
 #include <iostream>
 
-jint JNI_OnLoad(JavaVM *vm, void *) {
+EXPORT jint JNI_OnLoad(JavaVM *vm, void *) {
     Globals::init(vm);
 
     jfloat pi = getClass("arc/math/Mathf").getStaticField<jfloat>("PI", "F").get();
