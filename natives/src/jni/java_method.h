@@ -1,7 +1,7 @@
 #ifndef JAVA_METHOD_H
 #define JAVA_METHOD_H
 
-#include "jni.h"
+#include <jni.h>
 
 template <typename R, typename... Args>
 class JavaMethod {

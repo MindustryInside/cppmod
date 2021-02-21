@@ -1,7 +1,7 @@
 #ifndef JAVA_FIELD_H
 #define JAVA_FIELD_H
 
-#include "Jni.h"
+#include <jni.h>
 #include "../functions.h"
 #include "typed_methods.h"
 

@@ -1,7 +1,7 @@
 #ifndef JAVA_CLASS_H
 #define JAVA_CLASS_H
 
-#include "Jni.h"
+#include <jni.h>
 #include "java_method.h"
 #include "java_field.h"
 #include "../functions.h"
