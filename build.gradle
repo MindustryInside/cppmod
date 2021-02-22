@@ -12,9 +12,8 @@ def OS = System.getProperty('os.name')
 ext {
     natives = [:]
 
-    natives.include = file("$rootDir/natives/include")
-
     natives.src = file("$rootDir/src/cpp")
+    natives.include = file("$natives.src/java")
 
     natives.javaSources = [
         'nativeio.jni.Natives'
@@ -54,7 +53,7 @@ task run(type: JavaExec) {
     jvmArgs "-Djava.library.path=$cmake.build"
 }
 
-task nativeHeaders() {
+task genHeaders() {
     doLast {
         exec {
             executable jvm.javacExecutable
@@ -65,26 +64,17 @@ task nativeHeaders() {
     }
 }
 
-task buildNatives() {
-    // def platformInclude = OS.contains('Windows') ? 'win32'
-    //         : OS.contains('Linux') ? 'linux' : 'darwin'
-
-    // def platformShared = OS.contains('Windows') ? 'nativeio.dll'
-    //         : OS.contains('Linux') ? 'libnativeio.so' : 'libnativeio.dylib'
-
+task natives() {
     doLast {
-        natives.bin.mkdirs()
+        exec {
+            executable 'cmake'
+                args '-B', cmake.build
+                args '-G', '"MinGW Makefiles"'
+        }
 
         exec {
-            workingDir cmake.build
-
-            executable 'cmake'
-                args '-G', 'MinGW Makefiles'
-                args cmake.cmakelists
+            executable 'make'
+                args '-C', cmake.build
         }
     }
-}
-
-task natives() {
-    dependsOn nativeHeaders, buildNatives
 }
