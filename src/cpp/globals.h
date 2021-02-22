@@ -4,7 +4,7 @@
 #include "jni/jni.h"
 
 #define JAVA_VERSION JNI_VERSION_1_6
-#define EXPORT __declspec(dllexport)
+#define EXPORT JNIEXPORT
 
 class Globals {
     private:
