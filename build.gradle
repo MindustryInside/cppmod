@@ -11,9 +11,7 @@ def OS = System.getProperty('os.name')
 
 ext {
     natives = [:]
-    versions = [:]
 
-    natives.bin = file("$rootDir/natives/bin")
     natives.include = file("$rootDir/natives/include")
 
     natives.src = file("$rootDir/src/cpp")
@@ -29,7 +27,14 @@ ext {
         return "$rootDir\\src\\java\\$clazz"
     }
 
+    versions = [:]
+
     versions.mindustry = 'v125.1'
+
+    cmake = [:]
+
+    cmake.cmakelists = file("$rootDir/CMakeLists.txt")
+    cmake.build = file("$rootDir/cmake-build")
 }
 
 repositories {
@@ -46,7 +51,7 @@ task run(type: JavaExec) {
     main = 'nativeio.Main'
     classpath = sourceSets.main.runtimeClasspath
 
-    jvmArgs "-Djava.library.path=$natives.bin"
+    jvmArgs "-Djava.library.path=$cmake.build"
 }
 
 task nativeHeaders() {
@@ -61,24 +66,21 @@ task nativeHeaders() {
 }
 
 task buildNatives() {
-    def platformInclude = OS.contains('Windows') ? 'win32'
-            : OS.contains('Linux') ? 'linux' : 'darwin'
+    // def platformInclude = OS.contains('Windows') ? 'win32'
+    //         : OS.contains('Linux') ? 'linux' : 'darwin'
 
-    def platformShared = OS.contains('Windows') ? 'nativeio.dll'
-            : OS.contains('Linux') ? 'libnativeio.so' : 'libnativeio.dylib'
+    // def platformShared = OS.contains('Windows') ? 'nativeio.dll'
+    //         : OS.contains('Linux') ? 'libnativeio.so' : 'libnativeio.dylib'
 
     doLast {
         natives.bin.mkdirs()
 
         exec {
-            executable 'g++'
-                args '-I', "$JAVA_HOME/include"
-                args '-I', "$JAVA_HOME/include/$platformInclude"
-                args '-I', natives.src
-                args '-o', "$natives.bin/$platformShared"
-                args '-shared'
-                args '-std=c++17'
-                args "$natives.src/*.cpp"
+            workingDir cmake.build
+
+            executable 'cmake'
+                args '-G', 'MinGW Makefiles'
+                args cmake.cmakelists
         }
     }
 }
