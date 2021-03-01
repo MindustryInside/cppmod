@@ -14,6 +14,7 @@ ext {
 
     natives.src = file("$rootDir/src/cpp")
     natives.include = file("$natives.src/java")
+    natives.build = file("$rootDir/build")
 
     natives.javaSources = [
         'nativeio.jni.Natives'
@@ -29,11 +30,6 @@ ext {
     versions = [:]
 
     versions.mindustry = 'v125.1'
-
-    cmake = [:]
-
-    cmake.cmakelists = file("$rootDir/CMakeLists.txt")
-    cmake.build = file("$rootDir/cmake-build")
 }
 
 repositories {
@@ -50,7 +46,7 @@ task run(type: JavaExec) {
     main = 'nativeio.Main'
     classpath = sourceSets.main.runtimeClasspath
 
-    jvmArgs "-Djava.library.path=$cmake.build"
+    jvmArgs "-Djava.library.path=$natives.build"
 }
 
 task genHeaders() {
@@ -64,17 +60,6 @@ task genHeaders() {
     }
 }
 
-task natives() {
-    doLast {
-        exec {
-            executable 'cmake'
-                args '-B', cmake.build
-                args '-G', '"MinGW Makefiles"'
-        }
-
-        exec {
-            executable 'make'
-                args '-C', cmake.build
-        }
-    }
-}
+// task natives() {
+    
+// }
