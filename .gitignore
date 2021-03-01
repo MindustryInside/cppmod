@@ -1,7 +1,4 @@
 .gradle
 .idea
-build
-cmake-build
-cmake-build-debug
-natives/include
 .vscode
+build

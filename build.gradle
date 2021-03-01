@@ -5,6 +5,7 @@ apply plugin: 'java'
 sourceSets.main.java.srcDirs = ['src/java']
 
 def jvm = Jvm.current()
+
 def JAVA_HOME = jvm.javaHome
 def TEMP = File.createTempDir()
 def OS = System.getProperty('os.name')

@@ -5,6 +5,7 @@
 EXPORT jint JNI_OnLoad(JavaVM *vm, void *) {
     Globals::init(vm);
 
+    // tests
     jfloat pi = getClass("arc/math/Mathf").getStaticField<jfloat>("PI", "F").get();
     std::cout << pi << std::endl;
 
