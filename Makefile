@@ -1,10 +1,10 @@
 CXX := g++
 
 STANDARD := c++17
-CFLAGS := -O3 -Wall -Wextra -pedantic -g -std=$(STANDARD) -Isrc/cpp
+CFLAGS := -O3 -Wall -Wextra -pedantic -g -std=$(STANDARD) -Isrc/main/cpp
 LDFLAGS := -fPIC -shared -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/linux"
 
-build := build
+build := bin
 shared := libnativeio.so
 
 ifeq ($(OS), Windows_NT)
@@ -17,12 +17,12 @@ else
 	endif
 endif
 
-sources := $(shell find src/cpp -type f -name "*.cpp" -o -name "*.h")
+sources := $(shell find src/main/cpp -type f -name "*.cpp" -o -name "*.h")
 
 all: $(shared)
 
 $(shared): $(sources)
 	@printf "SHARED\t%s\n" $@
-	@$(CXX) $(CFLAGS) $(LDFLAGS) -o $(build)/$@ src/cpp/*.cpp
+	@$(CXX) $(CFLAGS) $(LDFLAGS) -o $(build)/$@ src/main/cpp/*.cpp
 
 .PHONY: all

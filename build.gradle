@@ -2,7 +2,7 @@ import org.gradle.internal.jvm.*
 
 apply plugin: 'java'
 
-sourceSets.main.java.srcDirs = ['src/java']
+sourceSets.main.java.srcDirs = ['src/main/java']
 
 def jvm = Jvm.current()
 
@@ -13,9 +13,9 @@ def OS = System.getProperty('os.name')
 ext {
     natives = [:]
 
-    natives.src = file("$rootDir/src/cpp")
+    natives.src = file("$rootDir/src/main/cpp")
     natives.include = file("$natives.src/java")
-    natives.build = file("$rootDir/build")
+    natives.bin = file("$rootDir/bin")
 
     natives.javaSources = [
         'nativeio.jni.Natives'
@@ -47,7 +47,7 @@ task run(type: JavaExec) {
     main = 'nativeio.Main'
     classpath = sourceSets.main.runtimeClasspath
 
-    jvmArgs "-Djava.library.path=$natives.build"
+    jvmArgs "-Djava.library.path=$natives.bin"
 }
 
 task genHeaders() {
