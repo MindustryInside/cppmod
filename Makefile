@@ -1,21 +1,19 @@
-CC := g++
+CXX := g++
 
 STANDARD := c++17
-FLAGS := -Wall -Wextra -pedantic -g
-CFLAGS := -std=$(STANDARD) -I"$(JAVA_HOME)/include" -Isrc/cpp
+CFLAGS := -O3 -Wall -Wextra -pedantic -g -std=$(STANDARD) -Isrc/cpp
+LDFLAGS := -fPIC -shared -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/linux"
 
 build := build
 shared := libnativeio.so
 
 ifeq ($(OS), Windows_NT)
 	shared := nativeio.dll
-	CFLAGS += -fPIC -shared -I"$(JAVA_HOME)/include/win32"
+	LDFLAGS := -fPIC -shared -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/win32"
 else
 	ifeq ($(shell uname), Darwin) 
 		shared := libnativeio.dylib
-		CFLAGS += -dynamiclib -I"$(JAVA_HOME)/include/darwin"
-	else
-		CFLAGS += -fPIC -shared -I"$(JAVA_HOME)/include/linux"
+		LDFLAGS := -dynamiclib -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/darwin"
 	endif
 endif
 
@@ -25,4 +23,6 @@ all: $(shared)
 
 $(shared): $(sources)
 	@printf "SHARED\t%s\n" $@
-	@$(CC) $(FLAGS) $(CFLAGS) -o $(build)/$@ src/cpp/*.cpp
+	@$(CXX) $(CFLAGS) $(LDFLAGS) -o $(build)/$@ src/cpp/*.cpp
+
+.PHONY: all
