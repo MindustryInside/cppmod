@@ -3,3 +3,10 @@
 .vscode
 build
 libs
+
+# legacy
+gradle
+build.gradle
+settings.gradle
+gradlew
+gradlew.bat
