@@ -5,7 +5,7 @@
     "description": "JNI-based Mindustry mod",
     "version": "0.1",
     "main": "nativeio.Loader",
-    "minGameVersion": "125.1",
+    "minGameVersion": "126.1",
     "dependencies": [],
     "hidden": false,
     "java": true
