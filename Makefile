@@ -35,16 +35,19 @@ shared := $(CXXBUILD)/libnativeio.so
 jar := $(BUILD)/nativeio.jar
 
 ifeq ($(OS), Windows_NT)
-	rm = @cmd /C del /S /Q $(1)
-	cp = xcopy "$(1)" "$(2)"
+	# windows compatibility
+	rm = @cmd /C if exist $(1) rmdir /Q /S $(1)
+	cp = @printf y | xcopy "$(subst /,\,$(1))" "$(subst /,\,$(2))" > $(BUILD)/install.txt
+	mkdir = @cmd /C if not exist $(subst /,\,$(1)) mkdir $(subst /,\,$(1))
 
-	MINDUSTRY := $(APPDATA)\Mindustry
+	MINDUSTRY := $(subst \,/,$(USERPROFILE))/AppData/Roaming/Mindustry
 
 	shared := $(CXXBUILD)/nativeio.dll
 	LDFLAGS := -fPIC -shared -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/win32"
 else
 	rm = @rm -rf $(1)
-	cp = cp $(1) $(2)
+	cp = @cp $(1) $(2)
+	mkdir = @mkdir $(1)
 
 	MINDUSTRY := $(HOME)/Library/Application Support/Mindustry
 
@@ -82,10 +85,12 @@ $(CLASSES)/%.class: $(SOURCES)/%.java
 
 $(shared):
 	@printf "CXX\t%s\n" $@
+	@$(call mkdir,$(CXXBUILD))
 	@$(CXX) $(CFLAGS) $(LDFLAGS) -o $@ $(CXXSOURCES:%=%/*.cpp)
 
 clean:
 	$(call rm,$(BUILD))
 
-install:
-	$(call cp,.\$(subst /,\,$(jar)),$(USERPROFILE)\AppData\Roaming\Mindustry\mods)
+install: $(jar)
+	@printf "COPY\t%s %s\t" $< $(MINDUSTRY)/mods/$<
+	$(call cp,$<,$(MINDUSTRY)/mods)
