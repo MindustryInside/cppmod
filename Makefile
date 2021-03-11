@@ -30,6 +30,7 @@ cxxsources := $(shell find $(CXXSOURCES) -type f -name "*.h" -or -name "*.cpp")
 
 sources := $(shell find $(SOURCES) -type f -name "*.java")
 classes = $(patsubst $(SOURCES)/%.java, $(CLASSES)/%.class, $(sources))
+headers := $(CXXSOURCES)/java
 
 shared := $(CXXBUILD)/libnativeio.so
 jar := $(BUILD)/nativeio.jar
@@ -68,6 +69,7 @@ define lib
 endef
 
 shared: $(shared)
+headers: $(headers)
 jar: $(jar)
 
 dependencies: libs
@@ -88,9 +90,13 @@ $(shared):
 	@$(call mkdir,$(CXXBUILD))
 	@$(CXX) $(CFLAGS) $(LDFLAGS) -o $@ $(CXXSOURCES:%=%/*.cpp)
 
+$(headers): $(sources)
+	@printf "HEADERS\t%s\n" $@
+	@$(JAVAC) $(JAVACFLAGS) -d $(CLASSES) -h $@ $<
+
 clean:
 	$(call rm,$(BUILD))
 
 install: $(jar)
-	@printf "COPY\t%s %s\t" $< $(MINDUSTRY)/mods/$<
+	@printf "COPY\t%s %s\t\n" $< $(MINDUSTRY)/mods/$<
 	$(call cp,$<,$(MINDUSTRY)/mods)

@@ -5,6 +5,16 @@
 
 template < class R > struct TypedMethods;
 
+template <> struct TypedMethods<jvoid> {
+    static constexpr auto CallMethod           = &JNIEnv::CallVoidMethod;
+    static constexpr auto CallNonvirtualMethod = &JNIEnv::CallNonvirtualVoidMethod;
+    static constexpr auto GetField             = &JNIEnv::GetObjectField;
+    static constexpr auto SetField             = &JNIEnv::SetObjectField;
+    static constexpr auto CallStaticMethod     = &JNIEnv::CallStaticVoidMethod;
+    static constexpr auto GetStaticField       = &JNIEnv::GetStaticObjectField;
+    static constexpr auto SetStaticField       = &JNIEnv::SetStaticObjectField;
+};
+
 template <> struct TypedMethods<jobject*> {
     static constexpr auto CallMethod           = &JNIEnv::CallObjectMethod;
     static constexpr auto CallNonvirtualMethod = &JNIEnv::CallNonvirtualObjectMethod;

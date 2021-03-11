@@ -3,4 +3,6 @@
 
 #include <jni.h>
 
+#define jvoid void
+
 #endif
