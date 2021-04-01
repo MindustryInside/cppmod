@@ -36,7 +36,7 @@ shared := $(CXXBUILD)/libnativeio.so
 jar := $(BUILD)/nativeio.jar
 
 ifeq ($(OS), Windows_NT)
-	# windows compatibility
+	# windows sucks
 	rm = @cmd /C if exist $(1) rmdir /Q /S $(1)
 	cp = @printf y | xcopy "$(subst /,\,$(1))" "$(subst /,\,$(2))" > $(BUILD)/install.txt
 	mkdir = @cmd /C if not exist $(subst /,\,$(1)) mkdir $(subst /,\,$(1))
@@ -48,11 +48,11 @@ ifeq ($(OS), Windows_NT)
 else
 	rm = @rm -rf $(1)
 	cp = @cp $(1) $(2)
-	mkdir = @mkdir $(1)
+	mkdir = @mkdir -p $(1)
 
-	MINDUSTRY := $(HOME)/Library/Application Support/Mindustry
+	ifeq ($(shell uname), Darwin)
+		shared :=  $(CXXBUILD)/libnativeio.dylib
 
-	ifeq ($(shell uname), Darwin) 
 		shared :=  $(CXXBUILD)/libnativeio.dylib
 		LDFLAGS := -dynamiclib -I"$(JAVA_HOME)/include" -I"$(JAVA_HOME)/include/darwin"
 	endif
@@ -65,7 +65,7 @@ libs := $(libs:%=$(LIBS)/%.jar)
 
 define lib
 	@printf "LIB\t%s\n" $(LIBS)/$(1).jar
-	@curl 'https://jitpack.io/com/github/$(2)/$(3)/$(4)/$(3)-$(4).jar' -o $(LIBS)/$(1).jar -s
+	@curl --create-dirs -s -o $(LIBS)/$(1).jar 'https://jitpack.io/com/github/$(2)/$(3)/$(4)/$(3)-$(4).jar'
 endef
 
 shared: $(shared)
@@ -77,7 +77,7 @@ dependencies: libs
 	$(call lib,arc-core,Anuken/Arc,arc-core,$(version))
 	$(call lib,mindustry-core,Anuken/Mindustry,core,$(version))
 
-$(jar): $(shared) $(classes)
+$(jar): $(dependencies) $(shared) $(classes)
 	@printf "JAR\t%s\n" $@
 	@$(JAR) -cf $@ $(JARFLAGS)
 
