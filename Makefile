@@ -68,16 +68,16 @@ define lib
 	@curl --create-dirs -s -o $(LIBS)/$(1).jar 'https://jitpack.io/com/github/$(2)/$(3)/$(4)/$(3)-$(4).jar'
 endef
 
-shared: $(shared)
 headers: $(headers)
 jar: $(jar)
 
-dependencies: libs
+$(libs):
 	$(call rm, $(LIBS))
+	$(call mkdir, $(LIBS))
 	$(call lib,arc-core,Anuken/Arc,arc-core,$(version))
 	$(call lib,mindustry-core,Anuken/Mindustry,core,$(version))
 
-$(jar): $(dependencies) $(shared) $(classes)
+$(jar): $(shared) $(libs) $(classes)
 	@printf "JAR\t%s\n" $@
 	@$(JAR) -cf $@ $(JARFLAGS)
 
